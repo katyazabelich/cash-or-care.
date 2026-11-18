@@ -1,0 +1,68 @@
+/* Design tokens — Figma "Cohort / Fertility Atlas — Design system v1.2" (same as prototype/v04, read 2026-11-16)
+   (figma.com/design/rsWajsJSX0gKpSPP21k6W3, read 2026-11-16 in view mode; hex values read from the swatch labels) */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  /* 01 Core palette */
+  --c-offwhite: #FAFAF7;   /* canvas */
+  --c-ink: #252622;        /* primary text */
+  --c-burgundy: #642F41;   /* editorial emphasis, focus ring */
+  --c-green: #173F35;      /* primary actions */
+  /* 02 Supporting palette */
+  --c-orange: #FF922B;
+  --c-pink: #F2A4C4;
+  --c-olive: #C8C99A;
+  --c-citrus: #E4E84C;
+  --c-slate: #4F686F;
+  --c-sand: #D8C9B5;
+  --c-mist: #DFE5E0;
+  /* utility greys (implementation tokens) */
+  --c-white: #FFFFFF;
+  --c-grey-50: #F3F3EF;
+  --c-grey-100: #ECECE7;
+  --c-grey-300: #C9CAC3;
+  --c-grey-500: #8A8B84;
+  --c-grey-700: #5B5C56;
+  /* sequential ramp (08 / Sequential magnitude) */
+  --seq-1: #FBE9F0; --seq-2: #F6D3E1; --seq-3: #EBB3CB; --seq-4: #A9567A; --seq-5: #642F41;
+
+  /* semantic */
+  --bg: var(--c-offwhite);
+  --surface: var(--c-white);
+  --text: var(--c-ink);
+  --text-muted: var(--c-grey-700);
+  --text-faint: var(--c-grey-500);
+  --border: var(--c-grey-100);
+  --border-strong: var(--c-grey-300);
+  --action: var(--c-green);
+  --action-hover: var(--c-ink);
+  --focus: var(--c-burgundy);
+
+  /* data status badges (07 / Data status badges) */
+  --status-official: var(--c-mist);
+  --status-manual: var(--c-sand);
+  --status-estimate: var(--c-pink);
+  --status-verify: var(--c-citrus);
+  --status-missing: var(--c-grey-50);
+
+  /* typography — Instrument Serif for editorial headings & key figures, Inter for interface */
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --fs-display: 64px; --lh-display: 68px;
+  --fs-h1: 48px; --lh-h1: 56px;
+  --fs-h2: 32px; --lh-h2: 40px;
+  --fs-h3: 24px; --lh-h3: 32px;
+  --fs-body-l: 18px; --lh-body-l: 28px;
+  --fs-body: 16px; --lh-body: 24px;
+  --fs-label: 14px; --lh-label: 20px;
+  --fs-caption: 12px; --lh-caption: 16px;
+
+  /* spacing — 4 px base */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-6: 24px; --s-8: 32px; --s-12: 48px; --s-16: 64px;
+  /* radius */
+  --r-small: 2px; --r-control: 2px; --r-card: 4px; --r-chip: 4px;
+  /* grid */
+  --page-margin: 64px; --gutter: 24px; --max-width: 1440px;
+}
+@media (max-width: 1024px) { :root { --page-margin: 24px; } }
+@media (max-width: 600px)  { :root { --page-margin: 16px; --gutter: 16px; --fs-display: 44px; --lh-display: 48px; --fs-h1: 36px; --lh-h1: 42px; } }

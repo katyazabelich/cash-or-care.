@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cash or Care?</title>
+<meta name="description" content="Explore 27 countries and discover what goes together with having children: money, time, work and beliefs.">
+<link rel="stylesheet" href="tokens.css?v=28">
+<link rel="stylesheet" href="style.css?v=28">
+</head>
+<body>
+<header class="topbar bare"><div class="page">
+  <a class="brand" href="./" data-page="home" aria-label="Cash or Care? Home">
+    <svg class="logo" viewBox="0 0 36 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="var(--c-burgundy)"/><circle cx="24" cy="12" r="10" fill="var(--c-green)"/><path d="M18 4a10 10 0 0 1 0 16a10 10 0 0 1 0-16z" fill="var(--c-pink)"/></svg>
+    <span class="wordmark">Cash <i>or</i> Care?</span>
+  </a>
+  <nav class="mini-tabs" aria-label="Views">
+    <button data-view="compare">Compare a country</button><button data-view="all">What matters most</button><button data-view="money">Money</button><button data-view="culture">Culture</button>
+  </nav>
+  <nav class="toplinks" aria-label="Pages">
+    <button class="tl" data-page="highlights">Highlights</button>
+    <button class="tl" data-page="about">About the data</button>
+    <button class="tl" data-page="dataset">Dataset</button>
+  </nav>
+</div></header>
+
+<main class="page">
+  <!-- ============================================================ HOME -->
+  <div id="page-home">
+    <section class="intro intro-v13" aria-label="Introduction">
+      <h1 class="i-title">Cash <i>or</i> Care?</h1>
+      <p class="i-lead">Explore 27 countries and see what goes together with having children: the money families get and pay, the time parents have, the jobs mothers keep and what people believe.</p>
+      <div class="home-cards" id="homeCards"></div>
+    </section>
+
+    <nav class="viewtabs" aria-label="Views">
+      <button data-view="compare" aria-pressed="true">Compare a country</button>
+      <button data-view="all" aria-pressed="false">What matters most</button>
+      <button data-view="money" aria-pressed="false">Money</button>
+      <button data-view="culture" aria-pressed="false">Culture</button>
+      <span class="tab-ink" aria-hidden="true"></span>
+    </nav>
+
+    <section id="view-compare" class="view" aria-label="Compare a country">
+      <div class="cmp-bar" role="group" aria-label="Countries to compare"><span class="cb-l">Compare</span><span id="cmpPick"></span><span class="cb-l">with</span><span id="cmp2Pick"></span></div>
+      <div id="cmpBody"></div>
+    </section>
+
+    <section id="view-all" class="view" aria-label="What matters most" hidden>
+      <div class="view-bar"><div class="segmented" id="allMode" role="group" aria-label="Show as"></div><div class="gfilters" id="groupFilters" role="group" aria-label="Topic"></div></div>
+      <div id="allBody"></div>
+    </section>
+
+    <section id="view-money" class="view" aria-label="Money" hidden>
+      <div class="view-bar"><div class="segmented" id="moneyMode" role="group" aria-label="Show as"></div><div class="gfilters part-chips" id="moneyParts" role="group" aria-label="Categories"></div></div>
+      <div id="moneyBody"></div>
+    </section>
+
+    <section id="view-culture" class="view" aria-label="Culture" hidden>
+      <div id="cultureBody"></div>
+    </section>
+  </div>
+
+  <!-- ============================================================ HIGHLIGHTS -->
+  <section id="page-highlights" class="pg" hidden>
+    <header class="pg-head"><h1 class="pg-title">Highlights</h1><p class="pg-lead">The most surprising patterns and record holders among 27 countries.</p></header>
+    <div class="hl-bar"><div class="segmented hl-mode" id="hlMode" role="group" aria-label="Show"></div></div>
+    <div id="hlBody"></div>
+  </section>
+
+  <!-- ============================================================ ABOUT -->
+  <section id="page-about" class="pg about" hidden>
+    <header class="pg-head"><h1 class="pg-title">About the data</h1><p class="pg-lead">Where the numbers come from and how to read them.</p></header>
+    <div class="about-grid">
+      <div>
+        <h3 class="h3">One example family</h3>
+        <p>All money is shown for the same kind of family in every country: two working parents expecting their first baby. The mother earns two-thirds of the country’s average wage, her partner earns the average. Amounts are in US dollars at the 2025 exchange rate.</p>
+        <h3 class="h3">How the money is added up</h3>
+        <ul class="plain">
+          <li><b>State support</b>: birth payment, child allowance and tax break for 3 years, baby bonus, and pay during leave for mother and father.</li>
+          <li><b>Cost of a baby</b>: giving birth, child health insurance for 3 years and 2 years of daycare.</li>
+          <li><b>What’s left after costs</b>: support minus costs; shown as a share of the family’s income over 3 years, or per month.</li>
+          <li><b>Mother’s workdays for daycare</b>: how many of her working days each month pay the daycare bill.</li>
+          <li>Hungary’s baby loan is a loan, so it is not counted. Russia’s maternity capital is counted, but can only be spent on housing, education or pension.</li>
+        </ul>
+        <h3 class="h3">Reading the numbers</h3>
+        <ul class="plain">
+          <li>Every number links to its source.</li>
+          <li><span class="mk mk-est"></span> estimate · <span class="mk mk-ver"></span> to verify · <b>*</b> there is a caveat: hover or tap the mark.</li>
+          <li><span class="nodata">no data</span> means the value is missing, never zero.</li>
+          <li><b>Link with births</b>: from −1 (more of this, fewer babies) to +1 (more of this, more babies). <small>Spearman rank correlation with children per woman across the countries that have data; near 0 = no link.</small></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="h3">Read with care</h3>
+        <ul class="plain">
+          <li><b>Linked does not mean caused.</b> Countries often start paying more because births have already fallen.</li>
+          <li><b>Model calculations.</b> Most money values are estimates from national rules for one example family; real families differ.</li>
+          <li><b>Surveys are worded differently.</b> EU: “family life suffers when the mother works full-time” (Eurobarometer 2024); elsewhere: “a pre-school child suffers” (national surveys, World Values Survey). No survey for Israel.</li>
+          <li><b>Some values are measured differently</b>: grandparent care in Japan, Russia and China, housework in Czechia and China, working mothers in Norway, Korea, Israel and Russia (other age groups). The * next to the value explains.</li>
+          <li><b>State family benefits</b> count cash only (allowances, leave pay, birth payments), not daycare or tax breaks; Russia and China are estimates, no figure for Kazakhstan.</li>
+          <li><b>27 countries only.</b> One country can change a ranking.</li>
+        </ul>
+        <h3 class="h3">Sources in short</h3>
+        <p class="source-note">Children per woman: World Bank, national statistics. Leave, daycare, state spending, working mothers, births outside marriage: OECD Family Database. Housework: national time-use surveys. Attitudes: Eurobarometer 545 (2024), national surveys, World Values Survey. Money rules: government sources for each country. Exchange rates: World Bank, central banks of Israel and Kazakhstan.</p>
+      </div>
+    </div>
+    <section class="src-all"><h2 class="h2-src">All sources</h2><p class="pg-lead">Every value in this site comes from one of these sources. Open a topic to see the links and the countries each source covers.</p><div id="srcList"></div></section>
+  </section>
+
+  <!-- ============================================================ DATASET -->
+  <section id="page-dataset" class="pg dataset" hidden>
+    <header class="pg-head"><h1 class="pg-title">Dataset</h1><p class="pg-lead">Every value, for every country. Click a number to open its source.</p></header>
+    <p class="ds-meta caption" id="dsMeta"></p>
+    <div class="ds-wrap"><table class="ds-table" id="dsTable"></table></div>
+  </section>
+
+</main>
+
+<div class="overlay pop" id="overlay" hidden>
+  <div class="scrim" data-close></div>
+  <article class="card-pop" id="sheet" role="dialog" aria-modal="true" aria-labelledby="cardTitle" tabindex="-1"></article>
+</div>
+
+<script src="vendor/d3.v7.9.0.min.js"></script>
+<script src="vendor/topojson-client.v3.1.0.min.js"></script>
+<script src="vendor/world-countries-50m.js"></script>
+<script src="data.js?v=28"></script>
+<script src="app.js?v=28"></script>
+</body>
+</html>
