@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cash or Care?</title>
 <meta name="description" content="Explore 27 countries and discover what goes together with having children: money, time, work and beliefs.">
-<link rel="stylesheet" href="tokens.css?v=35">
-<link rel="stylesheet" href="style.css?v=35">
+<link rel="stylesheet" href="tokens.css?v=41">
+<link rel="stylesheet" href="style.css?v=41">
 </head>
 <body>
 <header class="topbar bare"><div class="page">
@@ -15,7 +15,7 @@
     <span class="wordmark">Cash <i>or</i> Care?</span>
   </a>
   <nav class="mini-tabs" aria-label="Views">
-    <button data-view="compare">Compare a country</button><button data-view="all">What matters most</button><button data-view="money">Money</button><button data-view="culture">Culture</button>
+    <button data-view="all">What matters most</button><button data-view="compare">Compare a country</button><button data-view="money">Money</button><button data-view="culture">Culture</button>
   </nav>
   <nav class="toplinks" aria-label="Pages">
     <button class="tl" data-page="highlights">Highlights</button>
@@ -34,19 +34,20 @@
     </section>
 
     <nav class="viewtabs" aria-label="Views">
-      <button data-view="compare" aria-pressed="true">Compare a country</button>
-      <button data-view="all" aria-pressed="false">What matters most</button>
+      <button data-view="all" aria-pressed="true">What matters most</button>
+      <button data-view="compare" aria-pressed="false">Compare a country</button>
       <button data-view="money" aria-pressed="false">Money</button>
       <button data-view="culture" aria-pressed="false">Culture</button>
       <span class="tab-ink" aria-hidden="true"></span>
     </nav>
 
     <section id="view-compare" class="view" aria-label="Compare a country">
-      <div class="cmp-bar" role="group" aria-label="Countries to compare"><span class="cb-l">Compare</span><span id="cmpPick"></span><span class="cb-l">with</span><span id="cmp2Pick"></span></div>
+      <div class="cmp-bar" role="group" aria-label="Compare a country"><div class="segmented cmp-view" id="cmpView" role="group" aria-label="Show as"></div><div class="cmp-pickers" id="cmpPickers"><span class="cb-l">Compare</span><span id="cmpPick"></span><span class="cb-l">with</span><span id="cmp2Pick"></span></div></div>
       <div id="cmpBody"></div>
     </section>
 
     <section id="view-all" class="view" aria-label="What matters most" hidden>
+      <div id="twoScores"></div>
       <div class="view-bar"><div class="segmented" id="allMode" role="group" aria-label="Show as"></div><div class="gfilters" id="groupFilters" role="group" aria-label="Topic"></div></div>
       <div id="allBody"></div>
     </section>
@@ -78,9 +79,10 @@
         <h3 class="h3">How the money is added up</h3>
         <ul class="plain">
           <li><b>State support</b>: birth payment, child allowance and tax break for 3 years, baby bonus, and pay during leave for mother and father.</li>
-          <li><b>Cost of a baby</b>: giving birth, child health insurance for 3 years and 2 years of daycare.</li>
+          <li><b>Cost of a baby</b>: giving birth, child health insurance for 3 years and 2 years of crèche (under 3). Kindergarten (3 to school) is shown next to it but not counted, because the first three years end before it starts.</li>
           <li><b>What’s left after costs</b>: support minus costs; shown as a share of the family’s income over 3 years, or per month.</li>
-          <li><b>Mother’s workdays for daycare</b>: how many of her working days each month pay the daycare bill.</li>
+          <li><b>Mother’s workdays for the crèche</b>: how many of her working days each month pay the crèche (under 3) bill.</li>
+          <li><b>Crèche (under 3)</b> = parent fee for a full-time place in the capital city after standard subsidies; <b>Kindergarten (3 to school)</b> = the fee from age 3 until school. “Free” means the family pays nothing. In Italy the Rome fee is about EUR 280 a month, but the INPS Bonus nido pays it back, so the net cost is 0 for this family.</li>
           <li>Hungary’s baby loan is a loan, so it is not counted. Russia’s maternity capital is counted, but can only be spent on housing, education or pension.</li>
         </ul>
         <h3 class="h3">Reading the numbers</h3>
@@ -125,7 +127,7 @@
 <script src="vendor/d3.v7.9.0.min.js"></script>
 <script src="vendor/topojson-client.v3.1.0.min.js"></script>
 <script src="vendor/world-countries-50m.js"></script>
-<script src="data.js?v=35"></script>
-<script src="app.js?v=35"></script>
+<script src="data.js?v=41"></script>
+<script src="app.js?v=41"></script>
 </body>
 </html>

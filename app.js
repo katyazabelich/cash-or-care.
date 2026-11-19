@@ -1,4 +1,4 @@
-// prototype_v35 — mobile fixes (tabs, dropdowns, one-line compare bar, dots rank top-right, bigger radar labels, pop-up full screen, tables as cards with Sort by, chart rows), Spectrum view + scatter for correlations. prototype_v34 — Culture leave column rounded to whole weeks. prototype_v33 — one leave column in Culture, bigger numbers in the Money chart. prototype_v32 — Culture table: mother's and father's leave in weeks if paid at 100%; wider Money chart columns. prototype_v31 — one style for all table heads, chart head aligned. prototype_v30 — hero numbers removed, sticky table heads fixed. prototype_v29 — dataset v30 (real leave lengths T1/T5/T6), hero support numbers, no remembered state, sticky table heads. prototype_v28 — Money chart sortable by Balance and Children per woman. prototype_v27 — tag filters back in What matters most. prototype_v26 — Money table without category tags (not even rendered), cache-busting file names. prototype_v25 — dataset v27, highlight sentences continue the number, Two paths removed, Money tags only on the chart. prototype_v24 — opaque header, Two paths rule under the subtitle, highlight cards like the random card, round cursor frame. prototype_v23 — solid sticky bars, logo back, crosshair cursor + inertial scroll (after zrk.technology), no tag filters, tags back on highlight cards, Two paths heads with rule. prototype_v22 — CA logo, fixed header with tabs + sticky controls, Money chart first with clickable category tags, dataset source links, random card layout, motion (smooth scroll, reveals, custom cursor). prototype_v21 — sticky tabs, switch left / tags right, no captions in tabs, Two paths only in Highlights, random highlight spacing. prototype_v20 — 'Cash or Care?', centred layout, home correlation cards, Two paths finding, new copy, personal line, quiz redesign. prototype_v19 — full-width tabs (1/4 each), separate summary cards with aligned rows, rank as n/27 + mini dot strip. prototype_v18 — underlined pickers again, 4px corners, rank badge + position bar in summary cells. prototype_v17 — prominent tabs, pill country pickers, summary strips without captions, no source links on numbers (all sources listed on About), one value per dot row, radar hover data. prototype_v16 — one type scale, tabs as UI text, no footer, dots grouped in white cards per tag, profile with similarity heading, wider random highlight, two-column country card. prototype_v15 — custom dropdowns (small list type), ranks as 22/27, smaller intro and compare header. prototype_v14 — Compare header restyled after Katya's screenshots. prototype_v13 — Katya's review of v12 (2026-11-18): plain-language labels, impersonal inviting copy, no income selector
+// prototype_v41 — scatter tooltip never hides under the sticky bars (opens below / sideways near the edges), Scores removed from What matters most. prototype_v40 — Ranking and Scatter map restyled to match the site (square bars, grey dots like the dot strips, chosen country in burgundy with a flag), sticky heads. prototype_v39 — What matters most = Up or down only (sorted by strength), Ranking and Scatter map of the two scores moved to Compare a country, Medium income only, home cards = the two scores. prototype_v38 — dataset v32 (Support and Equality scores D34–D38), What matters most first, Two scores block (map / ranking, finding, how we scored). prototype_v37 — dataset v31 (M7 = crèche under 3, new M10 kindergarten 3 to school), 'Up or down' rope view first with country rankings, dumbbells and scatter removed, crèche / kindergarten labels. prototype_v36 — three correlation views: Tug of war, Top 5 vs bottom 5, animated Scatter (Spectrum and the small ranking scatter removed). prototype_v35 — mobile fixes (tabs, dropdowns, one-line compare bar, dots rank top-right, bigger radar labels, pop-up full screen, tables as cards with Sort by, chart rows), Spectrum view + scatter for correlations. prototype_v34 — Culture leave column rounded to whole weeks. prototype_v33 — one leave column in Culture, bigger numbers in the Money chart. prototype_v32 — Culture table: mother's and father's leave in weeks if paid at 100%; wider Money chart columns. prototype_v31 — one style for all table heads, chart head aligned. prototype_v30 — hero numbers removed, sticky table heads fixed. prototype_v29 — dataset v30 (real leave lengths T1/T5/T6), hero support numbers, no remembered state, sticky table heads. prototype_v28 — Money chart sortable by Balance and Children per woman. prototype_v27 — tag filters back in What matters most. prototype_v26 — Money table without category tags (not even rendered), cache-busting file names. prototype_v25 — dataset v27, highlight sentences continue the number, Two paths removed, Money tags only on the chart. prototype_v24 — opaque header, Two paths rule under the subtitle, highlight cards like the random card, round cursor frame. prototype_v23 — solid sticky bars, logo back, crosshair cursor + inertial scroll (after zrk.technology), no tag filters, tags back on highlight cards, Two paths heads with rule. prototype_v22 — CA logo, fixed header with tabs + sticky controls, Money chart first with clickable category tags, dataset source links, random card layout, motion (smooth scroll, reveals, custom cursor). prototype_v21 — sticky tabs, switch left / tags right, no captions in tabs, Two paths only in Highlights, random highlight spacing. prototype_v20 — 'Cash or Care?', centred layout, home correlation cards, Two paths finding, new copy, personal line, quiz redesign. prototype_v19 — full-width tabs (1/4 each), separate summary cards with aligned rows, rank as n/27 + mini dot strip. prototype_v18 — underlined pickers again, 4px corners, rank badge + position bar in summary cells. prototype_v17 — prominent tabs, pill country pickers, summary strips without captions, no source links on numbers (all sources listed on About), one value per dot row, radar hover data. prototype_v16 — one type scale, tabs as UI text, no footer, dots grouped in white cards per tag, profile with similarity heading, wider random highlight, two-column country card. prototype_v15 — custom dropdowns (small list type), ranks as 22/27, smaller intro and compare header. prototype_v14 — Compare header restyled after Katya's screenshots. prototype_v13 — Katya's review of v12 (2026-11-18): plain-language labels, impersonal inviting copy, no income selector
 // (Medium income only), Highlights / About the data / Dataset as separate pages in the top menu, Compare = dots (vs all
 // countries) or profile (vs one country) with highlight cards, map only in All indicators, country card as a centred pop-up
 // listing every indicator with its tag, its value, its rank and the data it is built on.
@@ -14,7 +14,7 @@
   const NC = D.countries.length;
 
   // ---------------------------------------------------------------- state
-  const DEFAULT = { page: 'home', view: 'compare', cmp: 'CHE', cmp2: 'ALL', group: 'All', openInd: null, allMode: 'list', mapInd: 'F1', moneyMode: 'chart', moneyOff: [], sortKey: 'F1', dir: 'desc', hlMode: 'all', hlTag: 'All', focus: 'CHE' };
+  const DEFAULT = { page: 'home', view: 'all', cmpView: 'compare', tsSort: 'D34', cmp: 'CHE', cmp2: 'ALL', group: 'All', openInd: null, allMode: 'tug', mapInd: 'F1', moneyMode: 'chart', moneyOff: [], sortKey: 'F1', dir: 'desc', hlMode: 'all', hlTag: 'All', focus: 'CHE' };
   let state = { ...DEFAULT };
   // v29: nothing is remembered between visits — every visit opens on Compare a country (Switzerland)
   const save = () => {};
@@ -54,8 +54,8 @@
   const s1Text = (c) => { const s = val(c, 'S1'); if (!s || s.v == null) return null; return isNum(s.v) ? (s.v >= 12 && s.v % 12 === 0 ? `age ${s.v / 12}` : `${s.v} months`) : 'not guaranteed'; };
 
   // ---------------------------------------------------------------- one catalogue of indicators: plain names, tags, values, formats
-  const TAGS = ['Births', 'Money', 'Leave & daycare', 'Culture', 'State'];
-  const TAG_CLASS = { Births: 'g-births', Money: 'g-money', 'Leave & daycare': 'g-leave', Culture: 'g-culture', State: 'g-state' };
+  const TAGS = ['Scores', 'Births', 'Money', 'Leave & daycare', 'Culture', 'State'];
+  const TAG_CLASS = { Scores: 'g-scores', Births: 'g-births', Money: 'g-money', 'Leave & daycare': 'g-leave', Culture: 'g-culture', State: 'g-state' };
   const tagChip = (t) => `<span class="gtag ${TAG_CLASS[t] || ''}">${esc(t)}</span>`;
   const fromVal = (id) => (c) => { const x = val(c, id); return x && isNum(x.v) ? { v: x.v, p: x } : null; };
   const fromDer = (id) => (c) => { const x = der(c, id); return x && isNum(x.v) ? { v: x.v, p: x } : null; };
@@ -63,20 +63,24 @@
   const pct = (d) => (v) => fmtPct(v, d);
   const usdPct = (per) => (v, x) => `${fmtUSD(x?.usd)}${per}<small> · ${fmtPct(v, 1)}</small>`;
   const IND = [
+    // v38 (dataset v32): two composite scores, 0–100 percentile ranks among 27 countries; births are not an input
+    { id: 'D34', tag: 'Scores', name: 'Support score (money, leave, childcare), 0–100', s: 'Support', get: fromDer('D34'), f: (v) => fmtNum(v, 0) },
+    { id: 'D35', tag: 'Scores', name: 'Equality score (working mothers, housework, attitudes), 0–100', s: 'Equality', get: fromDer('D35'), f: (v) => fmtNum(v, 0) },
     { id: 'F1', tag: 'Births', name: 'Children per woman', s: 'Children', get: fromVal('F1'), f: (v) => fmtNum(v, 2) },
     { id: 'F3', tag: 'Births', name: 'Mother’s age at first baby', s: 'Age at 1st baby', get: fromVal('F3'), f: (v) => fmtNum(v, 1) },
     { id: 'D06', tag: 'Money', name: 'State support, % of family income', s: 'Support', get: fromDer('D06'), f: pct(1), inputs: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6'] },
     { id: 'D09', tag: 'Money', name: 'Cost of a baby, % of family income', s: 'Costs', get: fromDer('D09'), f: pct(1), inputs: ['M7', 'M8', 'M9'] },
     { id: 'D12', tag: 'Money', name: 'What’s left after costs, % of family income', s: 'Balance', get: fromDer('D12'), f: (v) => fmtPct(v, 1, true), inputs: ['D06', 'D09'] },
-    { id: 'D16', tag: 'Money', name: 'Mother’s workdays a month to pay daycare', s: 'Daycare days', get: fromDer('D16'), f: (v) => fmtNum(v, 1), inputs: ['M7'] },
-    { id: 'D19', tag: 'Money', name: 'Mother’s pay left after daycare', s: 'Pay left', get: fromDer('D19'), f: pct(0), inputs: ['M7'] },
+    { id: 'D16', tag: 'Money', name: 'Mother’s workdays a month to pay the crèche (under 3)', s: 'Crèche days', get: fromDer('D16'), f: (v) => fmtNum(v, 1), inputs: ['M7'] },
+    { id: 'D19', tag: 'Money', name: 'Mother’s pay left after the crèche (under 3)', s: 'Pay left', get: fromDer('D19'), f: pct(0), inputs: ['M7'] },
     { id: 'M1', tag: 'Money', name: 'One-off birth payment', get: fromMoney('M1'), f: usdPct('') },
     { id: 'M2', tag: 'Money', name: 'Child allowance a year', get: fromMoney('M2'), f: usdPct('') },
     { id: 'M3', tag: 'Money', name: 'Child tax break a year', get: fromMoney('M3'), f: usdPct('') },
     { id: 'M4', tag: 'Money', name: 'Baby bonus', get: fromMoney('M4'), f: usdPct('') },
     { id: 'M5', tag: 'Money', name: 'Mother’s pay during leave', get: fromMoney('M5'), f: usdPct('') },
     { id: 'M6', tag: 'Money', name: 'Father’s pay during leave', get: fromMoney('M6'), f: usdPct('') },
-    { id: 'M7', tag: 'Money', name: 'Daycare fees a year', get: fromMoney('M7'), f: usdPct('') },
+    { id: 'M7', tag: 'Money', name: 'Crèche (under 3), fee a year', s: 'Crèche fee', get: fromMoney('M7'), f: (v, x) => (x && x.usd === 0 ? 'Free' : usdPct('')(v, x)) },
+    { id: 'M10', tag: 'Money', name: 'Kindergarten (3 to school), fee a year', s: 'Kindergarten fee', get: fromMoney('M10'), f: (v, x) => (x && x.usd === 0 ? 'Free' : usdPct('')(v, x)) },
     { id: 'M8', tag: 'Money', name: 'Cost of giving birth', get: fromMoney('M8'), f: usdPct('') },
     { id: 'M9', tag: 'Money', name: 'Child health insurance a year', get: fromMoney('M9'), f: usdPct('') },
     { id: 'T1', tag: 'Leave & daycare', name: 'Maternity leave, weeks', get: fromVal('T1'), f: (v) => fmtNum(v, 0) },
@@ -86,8 +90,8 @@
     { id: 'T5', tag: 'Leave & daycare', name: 'Paid leave for fathers only, weeks', s: 'Father’s leave', get: fromVal('T5'), f: (v) => fmtNum(v, v % 1 ? 1 : 0) },
     { id: 'T3', tag: 'Leave & daycare', name: 'Mother’s leave, weeks if paid at 100%', get: fromVal('T3'), f: (v) => fmtNum(v, 1) },
     { id: 'T4', tag: 'Leave & daycare', name: 'Father’s leave, weeks if paid at 100%', get: fromVal('T4'), f: (v) => fmtNum(v, 1) },
-    { id: 'S1', tag: 'Leave & daycare', name: 'Daycare place guaranteed from', get: fromVal('S1'), f: (v) => (v >= 12 && v % 12 === 0 ? `age ${v / 12}` : `${v} months`) },
-    { id: 'S2', tag: 'Leave & daycare', name: 'Toddlers in daycare', s: 'In daycare', get: fromVal('S2'), f: pct(0) },
+    { id: 'S1', tag: 'Leave & daycare', name: 'Crèche place guaranteed from', get: fromVal('S1'), f: (v) => (v >= 12 && v % 12 === 0 ? `age ${v / 12}` : `${v} months`) },
+    { id: 'S2', tag: 'Leave & daycare', name: 'Under-3s in a crèche', s: 'In a crèche', get: fromVal('S2'), f: pct(0) },
     { id: 'S3', tag: 'Leave & daycare', name: 'School starting age', get: fromVal('S3'), f: (v) => fmtNum(v, 0) },
     { id: 'X4', tag: 'Culture', name: 'Mothers of toddlers who work', s: 'Working mothers', get: fromVal('X4'), f: pct(0) },
     { id: 'D31', tag: 'Culture', name: 'Women’s housework and care compared with men', s: 'Housework gap', get: fromDer('D31'), f: (v) => `×${fmtNum(v, 1)}`, inputs: ['X2', 'X3'], sentence: (v) => `Women do ×${fmtNum(v, 1)} more housework and care than men` },
@@ -161,18 +165,24 @@
     const top5 = avg(bySup.slice(0, 5)), bot5 = avg(bySup.slice(-5)), bot5x = avg(bySup.filter((c) => !['ISR', 'KAZ'].includes(c.iso)).slice(-5));
     const cmp = `<div class="hc2-cmp"><div><b>${fmtNum(top5, 2)}</b><span>children per woman in the 5 countries that support families most</span></div><div><b>${fmtNum(bot5x, 2)}<sup>*</sup></b><span>in the 5 that support them least</span></div></div>
       <p class="hc2-note">* Without Israel and Kazakhstan, the two countries where big families are the norm. With Israel, one of the 5, the average is ${fmtNum(bot5, 2)}.</p>`;
-    $('#homeCards').innerHTML = card('Money', sup, 'Countries that pay more have fewer babies — often because they started paying after births fell.') + card('Culture', wm, 'Where mothers can keep their jobs, more babies are born.');
+    // v39: the two overall scores (Support D34, Equality D35) instead of single indicators
+    const sS = corrOf('D34'), sE = corrOf('D35');
+    const card2 = (cls, tag, r, head, text) => `<article class="hc2 ${cls}"><span class="gtag ${cls}">${esc(tag)}</span><span class="hc2-r">${fmtR(r?.rho)}</span><h3 class="hc2-h">${head}</h3><p>${esc(text)}</p></article>`;
+    $('#homeCards').innerHTML = card2('g-money', 'Support score', sS, 'Money, leave, childcare', 'Countries that support families more do not have more children.') + card2('g-culture', 'Equality score', sE, 'Jobs, housework, attitudes', 'Where parents share work and care more equally, more children are born.');
   }
 
   // ================================================================ HOME · Compare a country
-  const CMP = ['F1', 'F3', 'D06', 'D09', 'D12', 'D16', 'D19', 'T6', 'T5', 'S2', 'X4', 'D31', 'X6', 'X7', 'X8', 'C2'];
+  const CMP = ['F1', 'F3', 'D06', 'D09', 'D12', 'D16', 'D19', 'M7', 'M10', 'T6', 'T5', 'S2', 'X4', 'D31', 'X6', 'X7', 'X8', 'C2'];
   const countryOpts = (sel, extra) => (extra || '') + [...D.countries].sort((a, b) => a.name.localeCompare(b.name)).map((c) => `<option value="${c.iso}" ${c.iso === sel ? 'selected' : ''}>${esc(c.name)}</option>`).join('');
   function renderCompare() {
     if (!byIso[state.cmp]) state.cmp = 'CHE';
     if (state.cmp2 !== 'ALL' && (!byIso[state.cmp2] || state.cmp2 === state.cmp)) state.cmp2 = 'ALL';
     $('#cmpPick').innerHTML = dd('cmp', state.cmp, countryItems(), 'line a');
     $('#cmp2Pick').innerHTML = dd('cmp2', state.cmp2, [{ value: 'ALL', label: `the other ${NC - 1} countries`, short: `the other ${NC - 1}` }, ...countryItems().map((i) => ({ ...i, disabled: i.value === state.cmp }))], `line b ${state.cmp2 === 'ALL' ? 'all' : ''}`);
-    $('#cmpBody').innerHTML = state.cmp2 === 'ALL' ? cmpAll() : cmpPair();
+    const m = ['compare', 'rank', 'map'].includes(state.cmpView) ? state.cmpView : 'compare';
+    $('#cmpView').innerHTML = [['compare', 'Compare'], ['rank', 'Ranking'], ['map', 'Scatter map']].map(([k, l]) => `<button data-cmpview="${k}" aria-pressed="${m === k}">${l}</button>`).join('');
+    $('#cmpPickers').hidden = m !== 'compare';
+    $('#cmpBody').innerHTML = m === 'rank' ? scoreRankHtml() : m === 'map' ? scoreMapHtml() : state.cmp2 === 'ALL' ? cmpAll() : cmpPair();
   }
   // standout lists for a country: where it is closest to the top or bottom
   function standouts(iso) {
@@ -289,15 +299,49 @@
   }
 
   // ================================================================ HOME · All indicators (list or map)
-  const listIds = () => IND.filter((i) => !i.hidden && corrOf(i.id) && isNum(corrOf(i.id).rho));
+  // v41: the two scores live on the home screen only, not in the What matters most list
+  const listIds = () => IND.filter((i) => !i.hidden && i.tag !== 'Scores' && corrOf(i.id) && isNum(corrOf(i.id).rho));
+  // ================================================================ v38: Two scores (Support D34 × Equality D35)
+  const LEVELS = ['Low', 'Medium', 'High', 'Very high'];
+  const sc = (c, id, L) => { const d = c.levels[L].derived[id] || c.all[id]; return d && isNum(d.v) ? d.v : null; };
+  const corrAt = (id, L) => D.correlations.find((x) => x.id === id && x.level === L) || corrOf(id);
+  function scorePts() {
+    const L = 'Medium';
+    return D.countries.map((c) => ({ c, s: sc(c, 'D34', L), e: sc(c, 'D35', L), f: vv(c, 'F1'), m: sc(c, 'D36', L), l: sc(c, 'D37', L), k: sc(c, 'D38', L) })).filter((d) => d.s != null && d.e != null);
+  }
+  function scoreMapHtml() {
+    const pts = scorePts(), fmin = Math.min(...pts.map((d) => d.f)), fmax = Math.max(...pts.map((d) => d.f));
+    const col = () => 'var(--c-grey-500)';
+    const rad = (f) => 4 + ((f - fmin) / (fmax - fmin || 1)) * 9;
+    const tip = (d) => `<b>${esc(d.c.name)}</b><span class="ts-tl">Support <i>${fmtNum(d.s, 0)}</i></span><span class="ts-sub">Money ${fmtNum(d.m, 0)} · Leave ${fmtNum(d.l, 0)} · Childcare ${fmtNum(d.k, 0)}</span><span class="ts-tl">Equality <i>${fmtNum(d.e, 0)}</i></span><span class="ts-tl">Children per woman <i>${fmtNum(d.f, 2)}</i></span><button class="ts-open" data-card="${d.c.iso}">Open country →</button>`;
+    return `<section class="ts"><div class="ts-plot" id="tsPlot">
+        <div class="ts-q ts-q1">Low support,<br>high equality</div><div class="ts-q ts-q2">High support,<br>high equality</div>
+        <div class="ts-q ts-q3">Low support,<br>low equality</div><div class="ts-q ts-q4">High support,<br>low equality</div>
+        <span class="ts-mx"></span><span class="ts-my"></span>
+        ${[0, 25, 50, 75, 100].map((t) => `<span class="ts-tx" style="left:${t}%">${t}</span><span class="ts-ty" style="top:${100 - t}%">${t}</span>`).join('')}
+        ${[...pts].sort((a, b) => b.f - a.f).map((d) => `<div class="ts-d ${d.c.iso === state.cmp ? 'me' : ''} ${d.e > 55 ? 'tip-below' : ''} ${d.s < 18 ? 'tip-l' : d.s > 82 ? 'tip-r' : ''}" role="button" tabindex="0" data-tsiso="${d.c.iso}" style="left:${d.s}%;top:${100 - d.e}%;--r:${rad(d.f).toFixed(1)}px;--c:${col(d.f)}" aria-label="${esc(d.c.name)}: support ${fmtNum(d.s, 0)}, equality ${fmtNum(d.e, 0)}, ${fmtNum(d.f, 2)} children per woman"><i></i>${d.c.iso === state.cmp ? `<span class="ts-flag">${esc(d.c.name)} · ${fmtNum(d.f, 2)}</span>` : `<span class="ts-n"><span class="lb-full">${esc(d.c.name)}</span><span class="lb-short">${d.c.iso}</span></span>`}<span class="ts-tip">${tip(d)}</span></div>`).join('')}
+        <div class="ts-ax ts-axx">Support score →</div><div class="ts-ax ts-axy">Equality score →</div>
+      </div>
+      <div class="ts-key"><span>Dot size = children per woman</span>${[fmin, (fmin + fmax) / 2, fmax].map((f) => `<span class="ts-kd"><i style="width:${rad(f) * 2}px;height:${rad(f) * 2}px;background:${col(f)}"></i>${fmtNum(f, 2)}</span>`).join('')}</div></section>`;
+  }
+  function scoreRankHtml() {
+    const pts = scorePts();
+    const sortK = ['D34', 'D35', 'F1'].includes(state.tsSort) ? state.tsSort : 'D34', key = { D34: 's', D35: 'e', F1: 'f' }[sortK];
+    const rows = [...pts].sort((a, b) => b[key] - a[key]);
+    const hd = (k, l) => `<button class="sorth ${sortK === k ? 'on' : ''}" data-tssort="${k}">${l}${sortK === k ? ' ↓' : ''}</button>`;
+    const bar = (v, cls) => `<b>${fmtNum(v, 0)}</b><span class="ts-bar"><i class="${cls}" style="width:${v}%"></i></span>`;
+    return `<section class="ts"><div class="ts-rank"><div class="ts-rh"><span></span><span>Country</span>${hd('D34', 'Support score')}${hd('D35', 'Equality score')}${hd('F1', 'Children per woman')}</div>
+      ${rows.map((d, i) => `<button class="ts-rr ${d.c.iso === state.cmp ? 'me' : ''}" data-card="${d.c.iso}"><span class="ts-i">${i + 1}</span><span class="ts-c">${esc(d.c.name)}</span><span class="ts-v">${bar(d.s, 's')}</span><span class="ts-v">${bar(d.e, 'e')}</span><span class="ts-f">${fmtNum(d.f, 2)}</span></button>`).join('')}</div></section>`;
+  }
   function renderAll() {
-    $('#allMode').innerHTML = [['list', 'List'], ['spectrum', 'Spectrum'], ['map', 'Map']].map(([m, l]) => `<button data-allmode="${m}" aria-pressed="${state.allMode === m}">${l}</button>`).join('');
+    $('#twoScores').innerHTML = '';
+    $('#allMode').innerHTML = ''; $('#allMode').hidden = true; state.allMode = 'tug'; // v39: only the Up or down view
     const filters = ['All', ...TAGS].filter((g) => g === 'All' || listIds().some((i) => i.tag === g)).map((g) =>
       `<button class="gchip ${g === 'All' ? 'g-all' : TAG_CLASS[g]} ${g === state.group ? 'on' : ''}" data-group="${esc(g)}" aria-pressed="${g === state.group}">${g === 'All' ? 'All' : esc(g)}</button>`).join('');
     // v27: tag filters back in What matters most (only here); hidden on the map
     $('#groupFilters').innerHTML = filters; $('#groupFilters').hidden = state.allMode === 'map';
     if (state.allMode === 'map') { $('#allBody').innerHTML = mapShell(); drawMap(); return; }
-    if (state.allMode === 'spectrum') { $('#allBody').innerHTML = spectrumHtml(); return; }
+    if (state.allMode === 'tug') { $('#allBody').innerHTML = tugHtml(); return; }
     const shown = listIds().filter((i) => state.group === 'All' || i.tag === state.group).map((i) => ({ i, r: corrOf(i.id) })).sort((a, b) => Math.abs(b.r.rho) - Math.abs(a.r.rho));
     $('#allBody').innerHTML = `<div class="ind-list"><div class="ind-head"><span>Topic</span><span>Indicator</span><span class="span2">Link with births</span><span>Strength</span><span></span></div>` +
       shown.map(({ i, r }) => {
@@ -315,38 +359,28 @@
         </div>`;
       }).join('') + '</div><p class="fert-note">Linked does not mean caused.</p>';
   }
-  // v35: Spectrum — every indicator on one vertical scale of its link with births (+1 top … −1 bottom), labels pushed apart
-  function spectrumHtml() {
-    // dots sit at their true r on a vertical axis; labels run in an even column on the right, joined by leader lines (never cross: both sorted by r)
-    const rows = listIds().filter((i) => state.group === 'All' || i.tag === state.group).map((i) => ({ i, r: corrOf(i.id).rho })).sort((a, b) => b.r - a.r);
-    const n = rows.length, step = 30, top = 44, H = Math.max(420, (n - 1) * step + top * 2), bot = H - top;
-    const Y = (r) => top + ((1 - r) / 2) * (bot - top), AX = 40, LX = 96;
-    rows.forEach((d, k) => { d.y0 = Y(d.r); d.y = n > 1 ? top + k * ((bot - top) / (n - 1)) : top; });
-    const COL = { Money: '#D46A97', 'Leave & daycare': '#7FA08F', Culture: '#A88A63', State: '#9A9B5C', Births: '#E0A15E' };
-    const ticks = [1, 0.5, 0, -0.5, -1].map((t) => `<line x1="${AX - 6}" x2="${AX}" y1="${Y(t)}" y2="${Y(t)}" class="sp-t"/><text x="${AX - 10}" y="${Y(t) + 4}" text-anchor="end" class="sp-tl">${t > 0 ? '+' : t < 0 ? '−' : ''}${Math.abs(t)}</text>`).join('');
-    const lines = rows.map((d) => `<path d="M${AX},${d.y0.toFixed(1)} C${AX + 30},${d.y0.toFixed(1)} ${LX - 30},${d.y.toFixed(1)} ${LX - 4},${d.y.toFixed(1)}" class="sp-ld"/><circle cx="${AX}" cy="${d.y0.toFixed(1)}" r="6" fill="${COL[d.i.tag]}" class="sp-c"/>`).join('');
-    const items = rows.map((d) => `<button class="sp-it2" data-spind="${d.i.id}" style="top:${d.y.toFixed(1)}px;left:${LX}px"><span class="sp-r ${d.r < 0 ? 'neg' : 'pos'}">${fmtR(d.r)}</span><span class="sp-name">${esc(d.i.name)}</span></button>`).join('');
-    return `<div class="sp2" style="height:${H}px">
-      <svg class="sp-svg" viewBox="0 0 120 ${H}" preserveAspectRatio="xMinYMin meet" width="120" height="${H}" aria-hidden="true">
-        <line x1="${AX}" x2="${AX}" y1="${top}" y2="${bot}" class="sp-ax"/>
-        <line x1="${AX}" x2="120" y1="${Y(0)}" y2="${Y(0)}" class="sp-0"/>${ticks}${lines}
-        <text x="${AX - 24}" y="${top - 18}" class="sp-lbl pos">MORE BABIES ↑</text><text x="${AX - 24}" y="${bot + 28}" class="sp-lbl neg">FEWER BABIES ↓</text>
-      </svg>${items}
-    </div>`;
-  }
-  // v35: small scatter above each ranking: x = the indicator, y = children per woman, one dot per country
-  function scatterHtml(ind) {
-    const s = stats(ind.id); if (s.n < 3) return '';
-    const W = 640, H = 240, L = 44, Rr = 16, T = 14, B = 34;
-    const xs = s.pts.map((d) => d.x.v), lo = Math.min(...xs), hi = Math.max(...xs), ylo = 0.6, yhi = 3.1;
-    const X = (v) => L + ((v - lo) / ((hi - lo) || 1)) * (W - L - Rr), Yy = (v) => T + (1 - (v - ylo) / (yhi - ylo)) * (H - T - B);
-    const dots = s.pts.map((d) => { const f = vv(d.c, 'F1'); return `<g class="sc-p" data-card="${d.c.iso}"><circle cx="${X(d.x.v).toFixed(1)}" cy="${Yy(f).toFixed(1)}" r="5"/><text x="${(X(d.x.v) + 7).toFixed(1)}" y="${(Yy(f) + 3).toFixed(1)}">${d.c.iso}</text></g>`; }).join('');
-    const yt = [1, 1.5, 2, 2.5, 3].map((t) => `<line x1="${L}" x2="${W - Rr}" y1="${Yy(t)}" y2="${Yy(t)}" class="sc-g"/><text x="${L - 8}" y="${Yy(t) + 4}" text-anchor="end" class="sc-t">${t}</text>`).join('');
-    const lab = (v) => String(fmtI(ind, { v, usd: null })).replace(/<[^>]+>/g, '').replace('$null · ', '');
-    return `<figure class="sc"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Scatter: ${esc(ind.name)} against children per woman">${yt}
-      <text x="${L}" y="${H - 8}" class="sc-t">${esc(lab(lo))}</text><text x="${W - Rr}" y="${H - 8}" text-anchor="end" class="sc-t">${esc(lab(hi))}</text>
-      <text x="${(L + W - Rr) / 2}" y="${H - 8}" text-anchor="middle" class="sc-t sc-ax">${esc(ind.name)} →</text>
-      <text x="12" y="${T + 6}" class="sc-t sc-ax">children per woman ↑</text>${dots}</svg></figure>`;
+  // ================================================================ v36: three ways to see the links with births
+  const shownInd = () => listIds().filter((i) => state.group === 'All' || i.tag === state.group).map((i) => ({ i, r: corrOf(i.id).rho }));
+  // 1) Tug of war — every indicator is a rope pulling births up (right, green) or down (left, burgundy); length = strength of the link
+  // v37 'Up or down': each indicator is a rope from the centre line; click a row to unfold the country ranking (as in List)
+  let tugSeen = false;
+  function tugHtml() {
+    const rows = shownInd().sort((a, b) => Math.abs(b.r) - Math.abs(a.r)); // v39: strongest link first, whatever the direction
+    const calm = tugSeen; tugSeen = true; // ropes grow only the first time, not on every unfold
+    const row = (d, k) => {
+      const w = Math.abs(d.r) * 50, neg = d.r < 0, open = state.openInd === d.i.id;
+      return `<div class="ind tg-ind ${open ? 'open' : ''}"><button class="tg-row" data-ind="${d.i.id}" aria-expanded="${open}" style="--k:${k}">
+        <span class="tg-name">${tagChip(d.i.tag)}<span>${esc(d.i.name)}</span></span>
+        <span class="tg-track"><span class="tg-mid"></span>
+          <span class="tg-rope ${neg ? 'neg' : 'pos'}" style="${neg ? 'right:50%' : 'left:50%'};width:${w.toFixed(2)}%"><i class="tg-knot"></i></span>
+          <span class="tg-val ${neg ? 'neg' : 'pos'}" style="${neg ? `right:calc(50% + ${w.toFixed(2)}% + 18px)` : `left:calc(50% + ${w.toFixed(2)}% + 18px)`}">${fmtR(d.r)}</span>
+        </span><span class="chev" aria-hidden="true">${open ? '−' : '+'}</span></button>
+        <div class="ind-panel" ${open ? '' : 'hidden'}>${open ? rankingHtml(d.i) : ''}</div></div>`;
+    };
+    return `<section class="tug ${calm ? 'calm' : ''}">
+      <div class="tg-axis"><span>← fewer babies</span><span>0</span><span>more babies →</span></div>
+      ${rows.map(row).join('')}
+    </section>`;
   }
   function rankingHtml(ind) {
     const s = stats(ind.id), tmax = Math.max(...D.countries.map((c) => vv(c, 'F1') || 0));
@@ -358,7 +392,7 @@
       return `<tr data-card="${c.iso}" tabindex="0"><td class="r-rank">${i == null ? '' : i + 1}</td><td class="r-name">${esc(c.name)}</td><td class="r-val">${x ? valHtml(ind, x) : NODATA}</td>${minCell}
         <td class="r-tfr">${N(fmtNum(t.v, 2), t)}<span class="r-tbar" aria-hidden="true"><i style="width:${(t.v / tmax) * 100}%"></i></span></td></tr>`;
     };
-    return `${scatterHtml(ind)}<table class="rank-table"><thead><tr><th></th><th>Country</th><th>${esc(ind.name)}</th>${mins ? '<th>Minutes a day, women vs men</th>' : ''}<th>Children per woman</th></tr></thead>
+    return `<table class="rank-table"><thead><tr><th></th><th>Country</th><th>${esc(ind.name)}</th>${mins ? '<th>Minutes a day, women vs men</th>' : ''}<th>Children per woman</th></tr></thead>
       <tbody>${s.pts.map((d, i) => row(d.c, d.x, i)).join('')}${none.length ? `<tr class="r-sep"><td colspan="${mins ? 5 : 4}">No data</td></tr>${none.map((c) => row(c, null, null)).join('')}` : ''}</tbody></table>`;
   }
 
@@ -464,11 +498,12 @@
         <td>${big(dv(c, 'D16') == null ? NODATA : N(fmtNum(dv(c, 'D16'), 1), d('D16')))}</td>
         <td>${big(N(fmtPct(dv(c, 'D19')), d('D19')))}</td>
         <td>${big(`${N(fmtNum(vv(c, 'T6'), 0), val(c, 'T6'))} / ${N(IN.T5.f(vv(c, 'T5')), val(c, 'T5'))}`)}</td>
+        <td>${(() => { const k = (id) => { const x = money(c, id); return !x || !isNum(x.usd) ? NODATA : x.usd === 0 ? N('Free', { ...x, v: 0 }) : N(fmtUSD(x.usd), { ...x, v: x.usd }); }; return `${big(k('M7'))}${sub(`kindergarten ${k('M10')}`)}`; })()}</td>
         <td class="c-gift">${giftCell(c)}</td>
       </tr>`;
     }).join('');
     return `<div class="table-wrap"><table class="grid-table money-t"><thead><tr><th class="t-rank"></th><th class="t-name">Country</th>${th('F1', 'Children<br>per woman', 'c-tfr')}
-      ${th('D06', 'State support<br>a month')}${th('D09', 'Baby costs<br>a month')}${th('D12', 'What’s left<br>after costs a month')}${th('D16', 'Mother’s workdays<br>for daycare')}${th('D19', 'Mother’s pay left<br>after daycare')}${th('T6', 'Paid leave, weeks<br>mother / father')}${th('GIFT', 'Baby gift<br>from the state', 'c-gift')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+      ${th('D06', 'State support<br>a month')}${th('D09', 'Baby costs<br>a month')}${th('D12', 'What’s left<br>after costs a month')}${th('D16', 'Mother’s workdays<br>for the crèche')}${th('D19', 'Mother’s pay left<br>after daycare')}${th('T6', 'Paid leave, weeks<br>mother / father')}${th('M7', 'Crèche (under 3),<br>kindergarten (3 to school), a year')}${th('GIFT', 'Baby gift<br>from the state', 'c-gift')}</tr></thead><tbody>${rows}</tbody></table></div>`;
   }
   // v35 phones: tables turn into cards; each cell gets its column title as a label, and a "Sort by" list replaces the hidden header
   function labelCells() {
@@ -478,15 +513,15 @@
     });
   }
   function sortBar() {
-    const cols = [...(state.view === 'money' ? [['F1', 'Children per woman'], ['D06', 'State support'], ['D09', 'Baby costs'], ['D12', 'What’s left after costs'], ['D16', 'Mother’s workdays for daycare'], ['D19', 'Mother’s pay left'], ['T6', 'Paid leave'], ['GIFT', 'Baby gift']]
-      : [['F1', 'Children per woman'], ['D31', 'Housework gap'], ['X4', 'Mothers of toddlers who work'], ['X6', '“Kids suffer if mother works”'], ['X7', 'Toddlers with grandparents'], ['X8', 'Born outside marriage'], ['T3', 'Leave if paid at 100%'], ['S2', 'Toddlers in daycare']])];
+    const cols = [...(state.view === 'money' ? [['F1', 'Children per woman'], ['D06', 'State support'], ['D09', 'Baby costs'], ['D12', 'What’s left after costs'], ['D16', 'Mother’s workdays for the crèche'], ['M7', 'Crèche (under 3) fee'], ['D19', 'Mother’s pay left'], ['T6', 'Paid leave'], ['GIFT', 'Baby gift']]
+      : [['F1', 'Children per woman'], ['D31', 'Housework gap'], ['X4', 'Mothers of toddlers who work'], ['X6', '“Kids suffer if mother works”'], ['X7', 'Toddlers with grandparents'], ['X8', 'Born outside marriage'], ['T3', 'Leave if paid at 100%'], ['S2', 'Under-3s in a crèche']])];
     return `<div class="sort-m"><span>Sort by</span>${dd('sort', cols.some(([k]) => k === state.sortKey) ? state.sortKey : 'F1', cols.map(([value, label]) => ({ value, label })), 'mid')}<button class="sort-dir" data-dir-toggle="1" aria-label="Flip order">${state.dir === 'desc' ? '↓ high first' : '↑ low first'}</button></div>`;
   }
   const PARTS = [
     { key: 'cash', label: 'Allowances & tax breaks', side: 'get', cls: 'p-cash', calc: (m) => m('M1') + 3 * m('M2') + 3 * m('M3') },
     { key: 'bonus', label: 'Baby bonus', side: 'get', cls: 'p-bonus', calc: (m, c) => (c.iso === 'HUN' ? 0 : m('M4')) },
     { key: 'leave', label: 'Pay during leave', side: 'get', cls: 'p-leave', calc: (m) => m('M5') + m('M6') },
-    { key: 'creche', label: 'Daycare', side: 'pay', cls: 'p-creche', calc: (m) => 2 * m('M7') },
+    { key: 'creche', label: 'Crèche (under 3)', side: 'pay', cls: 'p-creche', calc: (m) => 2 * m('M7') },
     { key: 'health', label: 'Birth & insurance', side: 'pay', cls: 'p-health', calc: (m) => m('M8') + 3 * m('M9') },
   ];
   function partsOf(c) {
@@ -530,7 +565,7 @@
       </tr>`;
     }).join('');
     return `<div class="table-wrap"><table class="grid-table culture-t"><thead><tr><th class="t-rank"></th><th class="t-name">Country</th>${th('F1', 'Children<br>per woman', 'c-tfr')}
-      ${th('D31', 'Women do × more<br>housework & care')}${th('X4', 'Mothers of toddlers<br>who work')}${th('X6', 'Agree “kids suffer<br>if the mother works”')}${th('X7', 'Toddlers with<br>grandparents')}${th('X8', 'Born outside<br>marriage')}${th('T3', 'Leave, weeks if paid<br>at 100%: mother / father')}${th('S2', 'Toddlers<br>in daycare')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+      ${th('D31', 'Women do × more<br>housework & care')}${th('X4', 'Mothers of toddlers<br>who work')}${th('X6', 'Agree “kids suffer<br>if the mother works”')}${th('X7', 'Toddlers with<br>grandparents')}${th('X8', 'Born outside<br>marriage')}${th('T3', 'Leave, weeks if paid<br>at 100%: mother / father')}${th('S2', 'Under-3s<br>in a crèche')}</tr></thead><tbody>${rows}</tbody></table></div>`;
   }
 
   // ================================================================ v20: "Two paths" finding (Culture view + Highlights)
@@ -565,7 +600,9 @@
     link('F3', 'The later the first baby, the fewer babies overall.', 'The later the first baby, the more babies overall.');
     link('D31', 'The bigger the housework gap between women and men, the fewer babies.', 'The bigger the housework gap, the more babies.');
     link('X8', 'More babies born outside marriage goes with fewer babies overall.', 'Where children don’t need to wait for a wedding, more children are born.');
-    link('S2', 'More toddlers in daycare goes with fewer babies.', 'More toddlers in daycare goes with more babies.');
+    link('S2', 'More under-3s in a crèche goes with fewer babies.', 'More under-3s in a crèche goes with more babies.');
+    // v37 (dataset v31): crèche cost has a POSITIVE link — expensive crèches (Denmark, UK, Ireland, USA, France) go with more children, free crèches (Korea, Japan) with the fewest
+    link('M7', 'Countries with more expensive crèches have fewer babies.', 'Countries with more expensive crèches have more babies — free crèches in Korea and Japan go with the fewest.');
     { const r = corrOf('C2'); if (r && isNum(r.rho)) H.push({ kind: 'link', tag: 'State', big: fmtR(r.rho), head: 'link with births: how much a state spends on family benefits says nothing about how many babies are born.', foot: `Link with children per woman · ${r.strength} · ${r.n} countries`, id: 'C2' }); }
     const the = (n) => (/^(United|Netherlands)/.test(n) ? `the ${n}` : n);
     const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
@@ -579,10 +616,10 @@
     ext('D06', true, (n) => `of family income comes back as state support in ${n} — more than anywhere else.`, 'Which state gives new families the most support?');
     ext('D09', true, (n) => `of family income goes on a baby in ${n} — more than anywhere else.`, 'Where does a baby cost families the most?');
     ext('D12', false, (n) => `is what’s left after costs in ${n}: a baby costs the family more than the state gives.`, 'Where does a baby cost more than the state gives, by the widest margin?');
-    ext('D16', true, (n) => `workdays a month: that is how long mothers in ${n} work just to pay for daycare — the longest.`, 'Where do mothers work the most days just to pay for daycare?');
+    ext('D16', true, (n) => `workdays a month: that is how long mothers in ${n} work just to pay for the crèche (under 3) — the longest.`, 'Where do mothers work the most days just to pay for the crèche?');
     ext('T6', true, (n) => `weeks of paid leave a mother can take in ${n} — the longest.`, 'Where can mothers take the longest paid leave?');
     ext('T5', true, (n) => `weeks of paid leave just for fathers in ${n} — the longest.`, 'Where do fathers get the longest paid leave of their own?');
-    ext('S2', true, (n) => `of toddlers go to daycare in ${n} — the most.`, 'Where do the most toddlers go to daycare?');
+    ext('S2', true, (n) => `of under-3s go to a crèche in ${n} — the most.`, 'Where do the most under-3s go to a crèche?');
     ext('X4', true, (n) => `of mothers of toddlers have a job in ${n} — the most.`, 'Where do the most mothers of toddlers have a job?');
     ext('X4', false, (n) => `of mothers of toddlers have a job in ${n} — the fewest.`, 'Where do the fewest mothers of toddlers have a job?');
     ext('D31', true, (n) => `more housework and care is done by women than by men in ${n} — the biggest gap.`, 'Where do women do the most housework compared with men?');
@@ -743,7 +780,7 @@
   }
   function inputChips(c, ind) {
     if (!ind.inputs) return '';
-    return `<span class="in-chips">${ind.inputs.map((id) => { const i2 = IN[id], x = i2.get(c); const t = x ? (id.startsWith('M') ? N(fmtUSD(x.usd), x.p) : N(fmtI(i2, x), x.p)) : NODATA; return `<span class="in-chip">${esc(i2.name.replace(', % of family income', '').replace(', min a day', ''))} ${t}</span>`; }).join('')}</span>`;
+    return `<span class="in-chips">${ind.inputs.map((id) => { const i2 = IN[id], x = i2.get(c); const t = x ? (id.startsWith('M') ? N(x.usd === 0 && (id === 'M7' || id === 'M10') ? 'Free' : fmtUSD(x.usd), x.p) : N(fmtI(i2, x), x.p)) : NODATA; return `<span class="in-chip">${esc(i2.name.replace(', % of family income', '').replace(', min a day', ''))} ${t}</span>`; }).join('')}</span>`;
   }
   function cardHtml(c, list) {
     const idx = list.findIndex((x) => x.iso === c.iso);
@@ -883,6 +920,12 @@
       return;
     }
     if (t('[data-cmp]')) { state.cmp = t('[data-cmp]').dataset.cmp; save(); return render(); }
+    if (t('[data-cmpview]')) { state.cmpView = t('[data-cmpview]').dataset.cmpview; return render(); }
+    if (t('[data-tsmode]')) { state.tsMode = t('[data-tsmode]').dataset.tsmode; return renderAll(); }
+    if (t('[data-tslevel]')) { state.tsLevel = t('[data-tslevel]').dataset.tslevel; return renderAll(); }
+    if (t('[data-tssort]')) { state.tsSort = t('[data-tssort]').dataset.tssort; return render(); }
+    if (t('.ts-open')) return openCard(t('.ts-open').dataset.card);
+    if (t('.ts-d')) { const d = t('.ts-d'); const on = d.classList.contains('show'); document.querySelectorAll('.ts-d.show').forEach((x) => x.classList.remove('show')); if (!on) d.classList.add('show'); return; }
     if (t('[data-allmode]')) { state.allMode = t('[data-allmode]').dataset.allmode; save(); return render(); }
     if (t('[data-mapzoom]')) { const b = t('[data-mapzoom]'); mapZoom = b.dataset.mapzoom; b.parentNode.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b)); const box = $('#mapBox'); if (box && box._zoomTo) box._zoomTo(mapZoom, true); return; }
     if (t('[data-part]')) { const k = t('[data-part]').dataset.part, off = new Set(state.moneyOff || []); if (off.has(k)) off.delete(k); else off.add(k); state.moneyOff = [...off]; save(); return render(); }
